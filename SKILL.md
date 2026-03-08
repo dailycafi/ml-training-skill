@@ -1,12 +1,11 @@
 ---
 name: ml-training
 description: >
-  Use this skill for ANY neural network training task — training, fine-tuning, or debugging deep learning
-  models in PyTorch. Covers all domains: LLMs, vision, diffusion, medical imaging, protein/drug discovery,
-  spatial omics, genomics. Trigger on: loss, epochs, learning rate, optimizer, batch size, GPU performance,
-  convergence, Dice/FID/perplexity metrics, architecture choices (RMSNorm, RoPE, attention), U-Net, ViT,
-  ESM-2, MONAI, nnU-Net, EMA, DGX Spark, torch.compile, DeepSpeed, FSDP, or 训练/fine-tune 模型.
-  Do NOT trigger for: pandas data analysis, API serving, unit testing, or scRNA-seq DE analysis.
+  PyTorch training recipes for all neural network domains. Use when training or fine-tuning models,
+  debugging loss spikes or NaN gradients, resolving OOM errors, choosing model architectures, selecting
+  optimizers, tuning learning rates, or optimizing GPU throughput. Covers LLMs, vision, diffusion,
+  medical imaging, protein/drug discovery, spatial omics, and genomics. Do NOT use for pandas data
+  analysis, API serving, unit testing, or scRNA-seq differential expression.
 license: MIT
 metadata:
   author: dailycafi
