@@ -63,12 +63,34 @@ This skill draws from the following sources:
 - **[Scanpy / scverse](https://scanpy.readthedocs.io/)** — Single-cell analysis ecosystem
 - **[SpatialData](https://spatialdata.scverse.org/)** — Spatial omics data framework
 
-### Training Techniques
-- **[Chinchilla Scaling Laws](https://arxiv.org/abs/2203.15556)** — Compute-optimal training (Hoffmann et al.)
-- **[μP (Maximal Update Parameterization)](https://arxiv.org/abs/2203.03466)** — Hyperparameter transfer across model scales
-- **[RandAugment](https://arxiv.org/abs/1909.13719)** / **[CutMix](https://arxiv.org/abs/1905.04899)** / **[MixUp](https://arxiv.org/abs/1710.09412)** — Data augmentation strategies
+### Scaling Laws & Training Methodology
+- **[Chinchilla Scaling Laws](https://arxiv.org/abs/2203.15556)** — Compute-optimal training (Hoffmann et al., 2022)
+- **[Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361)** — Original scaling laws (Kaplan et al., 2020)
+- **[Scaling Data-Constrained Language Models](https://arxiv.org/abs/2305.16264)** — Data repetition limits (Muennighoff et al., 2023)
+- **[μP (Maximal Update Parameterization)](https://arxiv.org/abs/2203.03466)** — Hyperparameter transfer across model scales (Yang et al., 2022)
+- **[Deep Learning Tuning Playbook](https://github.com/google-research/tuning_playbook)** — Systematic HP tuning (Google Research)
+- **[A Recipe for Training Neural Networks](http://karpathy.github.io/2019/04/25/recipe/)** — Karpathy's debugging methodology (2019)
+- **[Schedule-Free Adam](https://arxiv.org/abs/2405.15682)** — Eliminates LR scheduling (Defazio & Mishchenko, 2024)
+
+### Architecture Papers
+- **[ViT (An Image is Worth 16x16 Words)](https://arxiv.org/abs/2010.11929)** — Vision Transformer (Dosovitskiy et al., 2020)
+- **[ConvNeXt](https://arxiv.org/abs/2201.03545)** — Modern CNN (Liu et al., 2022)
+- **[ResNet Strikes Back](https://arxiv.org/abs/2110.00476)** — Training recipe > architecture (Wightman et al., 2021)
+- **[Mamba](https://arxiv.org/abs/2312.00752)** — Linear-time sequence modeling (Gu & Dao, 2023)
+- **[RWKV](https://arxiv.org/abs/2305.13048)** — RNN-Transformer hybrid (Peng et al., 2023)
 - **[RoPE (Rotary Position Embeddings)](https://arxiv.org/abs/2104.09864)** — Positional encoding for transformers
 - **[RMSNorm](https://arxiv.org/abs/1910.07467)** — Efficient layer normalization
+- **[Flash Attention](https://arxiv.org/abs/2205.14135)** — IO-aware exact attention (Dao et al., 2022)
+
+### Data Augmentation
+- **[RandAugment](https://arxiv.org/abs/1909.13719)** / **[CutMix](https://arxiv.org/abs/1905.04899)** / **[MixUp](https://arxiv.org/abs/1710.09412)** — Data augmentation strategies
+
+### Training at Scale
+- **[LLaMA](https://arxiv.org/abs/2302.13971)** — Inference-optimal pretraining (Touvron et al., 2023)
+- **[PaLM](https://arxiv.org/abs/2204.02311)** — Scaling language modeling (Chowdhery et al., 2022)
+- **[OPT](https://arxiv.org/abs/2205.01068)** — Open pre-trained transformers (Zhang et al., 2022)
+- **[Cramming](https://arxiv.org/abs/2212.14034)** — Training LM on single GPU in one day (Geiping & Goldstein, 2022)
+- **[ML Engineering](https://github.com/stas00/ml-engineering)** — Practical guide (Stas Bekman)
 
 ### Hardware
 - **[NVIDIA DGX Spark (GB10)](https://www.nvidia.com/en-us/products/dgx/spark/)** — Grace Blackwell desktop, bandwidth-optimized training patterns
