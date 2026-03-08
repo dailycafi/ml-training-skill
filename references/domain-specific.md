@@ -506,3 +506,120 @@ loader = Loader(
     },
 )
 ```
+
+---
+
+## LLM Data Loading
+
+### Pinned buffers for zero-copy transfers
+
+```python
+# Pre-allocate pinned CPU + GPU buffers
+cpu_buffer = torch.empty(2 * B * T, dtype=torch.long, pin_memory=True)
+gpu_buffer = torch.empty(2 * B * T, dtype=torch.long, device="cuda")
+gpu_buffer.copy_(cpu_buffer, non_blocking=True)
+```
+
+### Best-fit packing (no padding)
+
+Instead of padding sequences to fixed length (wastes compute), pack documents tightly:
+1. Maintain a buffer of tokenized documents
+2. For each row, greedily fit the largest document that fits remaining space
+3. If nothing fits, crop the shortest to fill exactly
+4. Every row starts with BOS token
+5. Result: 100% utilization, no wasted tokens
+
+### Infinite iterators
+
+```python
+def make_dataloader(split):
+    """Yields (x, y, epoch) forever, cycling through data."""
+    epoch = 1
+    while True:
+        for batch in data_source:
+            yield process(batch), epoch
+        epoch += 1
+```
+
+---
+
+## Architecture Pattern Tables
+
+### Transformer / LLM components
+
+| Component | Recommended | Why |
+|-----------|------------|-----|
+| Normalization | RMSNorm | ~same quality as LayerNorm, fewer ops |
+| Position encoding | RoPE | Relative, extrapolates well, standard |
+| Attention | Flash Attention 3 | Memory-efficient, faster, exact |
+| Activation | ReluSquared or SwiGLU | ReluSquared: sparse. SwiGLU: better quality |
+| Residual | Learnable scaling + x0 skip | Stabilizes deep networks |
+| Logit cap | Soft capping | `softcap * tanh(logits / softcap)` |
+| Init | Zero-init output projections | Residual stream starts clean |
+| KV heads | GQA | Saves memory with minimal quality loss |
+
+### Vision (CNN / ViT) components
+
+| Component | Recommended | Why |
+|-----------|------------|-----|
+| Backbone | ConvNeXt v2 or ViT | ConvNeXt: modern CNN. ViT: scalable |
+| Data augmentation | RandAugment + MixUp + CutMix | More impactful than architecture |
+| Regularization | Stochastic depth + label smoothing | Better than dropout for vision |
+| Optimizer | AdamW (ViT) / SGD+momentum (CNN) | ViTs need adaptive methods |
+| Resolution | Progressive resizing | Train small → finetune large |
+
+### Diffusion model components
+
+| Component | Recommended | Why |
+|-----------|------------|-----|
+| Architecture | U-Net or DiT | DiT scales better |
+| Noise schedule | Cosine or flow matching | Flow matching: simpler, state-of-art |
+| Loss | MSE on noise or v-prediction | v-prediction better at low SNR |
+| EMA | Keep EMA model for inference | Higher quality samples |
+| Sampling | DDIM / DPM-Solver++ | Faster than DDPM |
+
+### General supervised
+
+| Component | Recommended | Why |
+|-----------|------------|-----|
+| Optimizer | AdamW | Safe default |
+| Early stopping | Patience 5-10 epochs | Prevents overfitting |
+| Class imbalance | Weighted loss or oversampling | Weighted loss is simpler |
+
+---
+
+## BPB Evaluation for Language Models
+
+```python
+@torch.no_grad()
+def evaluate_bpb(model, val_loader, token_bytes):
+    total_nats, total_bytes = 0.0, 0
+    for x, y in val_loader:
+        loss_per_token = F.cross_entropy(..., reduction='none').view(-1)
+        nbytes = token_bytes[y.view(-1)]
+        mask = nbytes > 0
+        total_nats += (loss_per_token * mask).sum().item()
+        total_bytes += nbytes.sum().item()
+    return total_nats / (math.log(2) * total_bytes)
+```
+
+### EMA smoothed loss
+
+```python
+ema_beta = 0.9
+smooth_loss = 0
+for step in range(num_steps):
+    smooth_loss = ema_beta * smooth_loss + (1 - ema_beta) * loss.item()
+    debiased = smooth_loss / (1 - ema_beta ** (step + 1))
+```
+
+### Final summary format
+
+Print structured output for easy parsing:
+```
+val_bpb:          0.997900
+training_seconds: 300.1
+peak_vram_mb:     45060.2
+mfu_percent:      39.80
+total_tokens_M:   499.6
+```
