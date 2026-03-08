@@ -93,7 +93,7 @@ This skill draws from the following sources:
 - **[ML Engineering](https://github.com/stas00/ml-engineering)** — Practical guide (Stas Bekman)
 
 ### Hardware
-- **[NVIDIA DGX Spark (GB10)](https://www.nvidia.com/en-us/products/dgx/spark/)** — Grace Blackwell desktop, bandwidth-optimized training patterns
+- **[NVIDIA DGX Spark (GB10)](https://www.nvidia.com/en-us/products/workstations/dgx-spark/)** — Grace Blackwell desktop, bandwidth-optimized training patterns
 - **[NVIDIA A100/H100](https://www.nvidia.com/en-us/data-center/)** — Data center GPUs, multi-GPU training
 
 ## License
