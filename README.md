@@ -9,7 +9,7 @@ A Claude Code skill providing battle-tested PyTorch training patterns across all
 claude install ml-training.skill
 
 # Or clone and symlink:
-git clone https://github.com/dailycafi/ml-training-skill.git
+git clone https://github.com/dailycafi/ml-training-skill
 ln -s $(pwd)/ml-training-skill ~/.claude/skills/ml-training
 ```
 
