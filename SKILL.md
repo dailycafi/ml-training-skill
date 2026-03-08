@@ -7,6 +7,12 @@ description: >
   convergence, Dice/FID/perplexity metrics, architecture choices (RMSNorm, RoPE, attention), U-Net, ViT,
   ESM-2, MONAI, nnU-Net, EMA, DGX Spark, torch.compile, DeepSpeed, FSDP, or 训练/fine-tune 模型.
   Do NOT trigger for: pandas data analysis, API serving, unit testing, or scRNA-seq DE analysis.
+license: MIT
+metadata:
+  author: dailycafi
+  version: 1.0.0
+  tags: [PyTorch, Training, Optimization, LLM, Vision, Diffusion, Biomedical, Muon, AdamW, Debugging]
+  documentation: https://github.com/dailycafi/ml-training-skill
 ---
 
 # ML Training Best Practices
