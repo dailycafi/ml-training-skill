@@ -9,6 +9,9 @@ Run every experiment with a **fixed time budget** (e.g., 5 minutes) so results a
 This enables ~12 experiments/hour or ~100 overnight. The key insight: wall-clock time is a better
 budget unit than steps or epochs because it naturally accounts for throughput differences between configs.
 
+For project structure (prepare.py/train.py split) and autonomous agent setup (program.md template),
+see `autoresearch-agent.md`.
+
 ## The experiment loop
 
 ```
@@ -39,8 +42,8 @@ d4e5f6g   0.0000    0.0        crash    double model width (OOM)
 ## Key principles
 
 ### Single-file constraint
-Confine all changes to one file (e.g., `train.py`). This makes diffs reviewable and rollbacks clean.
-Everything — model, optimizer, data loading, evaluation — lives in one file during experimentation.
+Confine all changes to `train.py`. Infrastructure (`prepare.py`) is read-only.
+This makes diffs reviewable and `git reset --hard HEAD~1` clean.
 Refactor into modules only after the experiment phase.
 
 ### Keep/discard discipline

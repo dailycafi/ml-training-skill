@@ -26,7 +26,8 @@ Battle-tested patterns for PyTorch training across domains. Drawn from productio
 - `references/domain-specific.md` — Vision, diffusion, contrastive, distributed, checkpointing, data loading
 - `references/scaling-and-selection.md` — Scaling laws, compute budget tables, decision trees, DGX Spark
 - `references/biomedical.md` — Drug discovery, protein models, medical imaging, genomics, clinical NLP
-- `references/experiment-loop.md` — Autonomous experiment loop (autoresearch keep/discard/revert)
+- `references/experiment-loop.md` — Keep/discard experiment loop: fixed time budget, results tracking in TSV. Use when user wants to continuously iterate and improve model performance, set up a keep/discard workflow, or mentions autoresearch-style experimentation.
+- `references/autoresearch-agent.md` — Autonomous agent setup: program.md template, prepare.py/train.py project structure. Use when user wants an AI agent to run experiments overnight or asks about autoresearch workflow.
 
 ---
 
